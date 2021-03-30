@@ -32,40 +32,21 @@ public class PuppyNotificationCenterApplication {
 		ConfigurableApplicationContext context = SpringApplication.run(PuppyNotificationCenterApplication.class, args);
 //		DataSource dataSource = (DataSource)context.getBean("mysqlDataSource");
 //		JdbcTemplate template = new JdbcTemplate(dataSource);
-//		template.execute("Create TABLE IF NOT EXISTS DogNotifications(" +
+//		template.execute("CREATE TABLE IF NOT EXISTS DogNotifications(" +
 //				"id INT, phoneNumber VARCHAR(12), email VARCHAR(30), subbedMarketing BOOLEAN, subbedReminders BOOLEAN)");
-//		DogNotificationDaoImpl dao = new DogNotificationDaoImpl((DataSource)context.getBean("mysqlDataSource"));
+
+
+		DogNotificationRepositoryImpl dogRepo = new DogNotificationRepositoryImpl();
 		DogNotification notification = new DogNotification();
 		notification.setId((long)1);
 		notification.setPhoneNumber("7067612848");
 		notification.setEmail("brandon@gmail.com");
 		notification.setSubbedMarketing(true);
 		notification.setSubbedReminders(true);
-		int created = dao.create(notification);
+		int created = dogRepo.add(notification);
 		System.out.println("created: " + created);
-
-
-//		DogNotificationRepositoryImpl dogRepo = new DogNotificationRepositoryImpl();
-//		DogNotification notification = new DogNotification();
-//		notification.setId((long)1);
-//		notification.setPhoneNumber("7067612848");
-//		notification.setEmail("brandon@gmail.com");
-//		notification.setSubbedMarketing(true);
-//		notification.setSubbedReminders(true);
-//		int created = dogRepo.add(notification);
-//		System.out.println("created: " + created);
-//		DogNotification retrieved = dogRepo.get("7067612848", "brandon@gmail.com");
-//		System.out.println("dog retrieved: " + retrieved.getEmail());
+		DogNotification retrieved = dogRepo.get("7067612848", "brandon@gmail.com");
+		System.out.println("dog retrieved: " + retrieved.getEmail());
 //		template.execute("DROP TABLE DogNotifications");
 	}
 }
-
-//		DogNotificationDaoImpl dao = new DogNotificationDaoImpl((DataSource)context.getBean("mysqlDataSource"));
-//		DogNotification notification = new DogNotification();
-//		notification.setId((long)1);
-//		notification.setPhoneNumber("7067612848");
-//		notification.setEmail("brandon@gmail.com");
-//		notification.setSubbedMarketing(true);
-//		notification.setSubbedReminders(true);
-//		int created = dao.create(notification);
-//		System.out.println("created: " + created);

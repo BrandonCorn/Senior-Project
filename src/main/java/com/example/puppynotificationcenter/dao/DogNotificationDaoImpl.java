@@ -15,16 +15,14 @@ import java.sql.PreparedStatement;
 import java.util.List;
 
 public class DogNotificationDaoImpl implements DogNotificationDao {
-    private JdbcTemplate template;
-    @Resource(name = "mysqlDataSource")
+    @Autowired
     private DataSource ds;
+    private JdbcTemplate template;
 
     public DogNotificationDaoImpl(){
         template = new JdbcTemplate(ds);
     }
-//    public DogNotificationDaoImpl(DataSource ds){
-//        template = new JdbcTemplate(ds);
-//    }
+
 
     @Override
     public int create(DogNotification dogNotification) {
