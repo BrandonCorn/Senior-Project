@@ -11,11 +11,13 @@ build/
 .factorypath
 .project
 .settings
+.properties
 .springBeans
 .sts4-cache
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+application.properties
 
 ### IntelliJ IDEA ###
 .idea

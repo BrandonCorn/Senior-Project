@@ -1,26 +1,23 @@
 package com.example.puppynotificationcenter.models;
 
-import javax.persistence.*;
 
-@Entity
-public class UserNotification {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DogNotification {
+
     private Long id;
     private String phoneNumber;
     private String email;
     private Boolean subbedReminders;
     private Boolean subbedMarketing;
 
-    public UserNotification(String phoneNumber, String email, Boolean subbedReminders, Boolean subbedMarketing) {
+    public DogNotification(String phoneNumber, String email, Boolean subbedReminders, Boolean subbedMarketing) {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.subbedReminders = subbedReminders;
         this.subbedMarketing = subbedMarketing;
     }
 
-    public UserNotification() {
-        super();
+    public DogNotification() {
+
     }
 
     public Long getId() {
