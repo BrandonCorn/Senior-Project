@@ -1,52 +1,44 @@
 package com.example.puppynotificationcenter;
 
-import com.example.puppynotificationcenter.dao.DogNotificationDaoImpl;
 import com.example.puppynotificationcenter.models.DogNotification;
 import com.example.puppynotificationcenter.repositories.DogNotificationRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
 import javax.sql.DataSource;
 
-@SpringBootApplication
-//@Configuration
-//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-public class PuppyNotificationCenterApplication {
-	@Autowired
-	private static Environment env;
-//	private static DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	@Autowired
-    private static DataSource dataSource;
 
-	private static DogNotificationDaoImpl dao;
+@SpringBootApplication
+public class PuppyNotificationCenterApplication {
+
+
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(PuppyNotificationCenterApplication.class, args);
-//		DataSource dataSource = (DataSource)context.getBean("mysqlDataSource");
-//		JdbcTemplate template = new JdbcTemplate(dataSource);
-//		template.execute("CREATE TABLE IF NOT EXISTS DogNotifications(" +
-//				"id INT, phoneNumber VARCHAR(12), email VARCHAR(30), subbedMarketing BOOLEAN, subbedReminders BOOLEAN)");
+		DataSource dataSource = (DataSource)context.getBean("mysqlDataSource");
+		JdbcTemplate template = new JdbcTemplate(dataSource);
+		template.execute("CREATE TABLE IF NOT EXISTS DogNotifications(" +
+				"id BIGINT(20) NOT NULL AUTO_INCREMENT, phoneNumber VARCHAR(12) NOT NULL, email VARCHAR(30) NOT NULL, subbedMarketing BOOLEAN" +
+				" NOT NULL, subbedReminders BOOLEAN NOT NULL, bindingSid VARCHAR(30) NOT NULL, identitySid VARCHAR(30) NOT NULL, " +
+				"PRIMARY Key(id), CONSTRAINT UC_Dog_Notification UNIQUE(phoneNumber,email, bindingSid, identitySid));");
 
 
-		DogNotificationRepositoryImpl dogRepo = new DogNotificationRepositoryImpl();
-		DogNotification notification = new DogNotification();
-		notification.setId((long)1);
-		notification.setPhoneNumber("7067612848");
-		notification.setEmail("brandon@gmail.com");
-		notification.setSubbedMarketing(true);
-		notification.setSubbedReminders(true);
-		int created = dogRepo.add(notification);
-		System.out.println("created: " + created);
-		DogNotification retrieved = dogRepo.get("7067612848", "brandon@gmail.com");
-		System.out.println("dog retrieved: " + retrieved.getEmail());
-//		template.execute("DROP TABLE DogNotifications");
+		DogNotificationRepositoryImpl impl = context.getBean(DogNotificationRepositoryImpl.class);
+		DogNotification	dogNotif = new DogNotification("706-761-2848", "test@test.com", false, false);
+		impl.add(dogNotif);
+		impl.add(dogNotif);
+
+		DogNotification notification = impl.get("706-761-2848", "test@test.com");
+		System.out.println(notification.getEmail());
+//		notification.setBindingSid("123456754848383828");
+//		notification.setIdentitySid("18478231209");
+//		impl.update(notification);
+		System.out.println(impl.get(notification.getPhoneNumber(), notification.getEmail()).getEmail());
+
 	}
 }
+
+
+
+

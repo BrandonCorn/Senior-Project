@@ -14,6 +14,8 @@ public class DogNotificationMapper implements RowMapper<DogNotification> {
         notification.setEmail(rs.getString("email"));
         notification.setSubbedMarketing(rs.getBoolean("subbedMarketing"));
         notification.setSubbedReminders(rs.getBoolean("subbedReminders"));
+        notification.setBindingSid(rs.getString("bindingSid"));
+        notification.setIdentitySid(rs.getString("identitySid"));
         return notification;
     }
 }

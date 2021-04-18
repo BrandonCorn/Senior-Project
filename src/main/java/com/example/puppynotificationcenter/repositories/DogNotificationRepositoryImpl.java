@@ -3,11 +3,15 @@ package com.example.puppynotificationcenter.repositories;
 import com.example.puppynotificationcenter.models.DogNotification;
 import com.example.puppynotificationcenter.dao.DogNotificationDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class DogNotificationRepositoryImpl implements DogNotificationRepository {
-
+    @Autowired
     private DogNotificationDaoImpl dogNotifDao;
+
+    public DogNotificationRepositoryImpl(){}
+
     @Override
     public int add(DogNotification dogNotification) {
         return dogNotifDao.create(dogNotification);

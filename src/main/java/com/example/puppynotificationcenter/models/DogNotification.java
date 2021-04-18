@@ -8,12 +8,16 @@ public class DogNotification {
     private String email;
     private Boolean subbedReminders;
     private Boolean subbedMarketing;
+    private String bindingSid;
+    private String identitySid;
 
     public DogNotification(String phoneNumber, String email, Boolean subbedReminders, Boolean subbedMarketing) {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.subbedReminders = subbedReminders;
         this.subbedMarketing = subbedMarketing;
+        bindingSid = "";
+        identitySid = "";
     }
 
     public DogNotification() {
@@ -59,6 +63,14 @@ public class DogNotification {
     public void setSubbedMarketing(Boolean subbedMarketing) {
         this.subbedMarketing = subbedMarketing;
     }
+
+    public String getBindingSid() { return bindingSid; }
+
+    public void setBindingSid(String bindingSid) { this.bindingSid = bindingSid; }
+
+    public String getIdentitySid() { return identitySid; }
+
+    public void setIdentitySid(String identitySid) { this.identitySid = identitySid; }
 
 }
 
