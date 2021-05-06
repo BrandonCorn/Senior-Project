@@ -13,10 +13,12 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation group: "com.twilio.sdk", name: "twilio", version: "8.8.0"
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
 	implementation 'org.modelmapper:modelmapper:2.3.9'
-	compile 'org.modelmapper:modelmapper:2.3.9'
+	implementation 'org.modelmapper:modelmapper:2.3.9'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
