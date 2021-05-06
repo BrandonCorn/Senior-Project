@@ -5,41 +5,41 @@ import com.twilio.Twilio;
 import com.twilio.base.ResourceSet;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.notify.v1.Service;
-import com.twilio.rest.notify.v1.ServiceFetcher;
 import com.twilio.rest.notify.v1.service.Binding;
 import com.twilio.rest.notify.v1.service.BindingDeleter;
 import com.twilio.rest.notify.v1.service.Notification;
 import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.script.Bindings;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Component
 public class TwilioRepositoryImpl implements TwilioRepository {
 
-//    @Value("${twilio.account-sid}")
-    private String ACCOUNT_SID = "AC4e5291dddcf44d59d36745b8440bf34c";
-//    @Value("${twilio.auth-token}")
-    private String AUTH_TOKEN = "7a102292e4572aca9bfc2b9ae65dbd90";
-//    @Value("${twilio.phone-number}")
-    private String PHONE_NUMBER = "+13235535700";
-    private String NOTIFY_SERVICE_SID = "ISc990790d0e35e2fe1f29c6e1bde367da";
-    private String NOTIFY_SERVICE_CREDENTIAL_SID = "CR02b3042cc122090742f0fb1afaf344fe";
+    private String ACCOUNT_SID;
+    private String AUTH_TOKEN;
+    private String PHONE_NUMBER;
+    private String NOTIFY_SERVICE_SID;
     private Service notifyService;
 
-    public TwilioRepositoryImpl() {
+    @Autowired
+    public TwilioRepositoryImpl(@Value("${twilio.account-sid}") String accountSid, @Value("${twilio.auth-token}") String authToken,
+            @Value("${twilio.phone-number}") String phoneNumber,@Value("${twilio.notify-service-sid}") String notifyServiceSid) {
+        this.ACCOUNT_SID = accountSid;
+        this.AUTH_TOKEN = authToken;
+        this.PHONE_NUMBER = phoneNumber;
+        this.NOTIFY_SERVICE_SID = notifyServiceSid;
         twilioInit();
         notifyService = Service.fetcher(NOTIFY_SERVICE_SID).fetch();
     }
-
+    @PostConstruct
     private void twilioInit() {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     }
@@ -52,7 +52,6 @@ public class TwilioRepositoryImpl implements TwilioRepository {
         Binding binding = Binding.creator(notifyService.getSid(), identity, Binding.BindingType.SMS, address).create();
         HashMap<String, String> bindingData = new HashMap<>();
         bindingData.put(binding.getSid(), binding.getIdentity());
-
         return bindingData;
     }
 
