@@ -20,13 +20,16 @@ public class DogNotification {
         identitySid = "";
     }
 
+    public DogNotification(Long id, String phoneNumber) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+    }
+
     public DogNotification() {
 
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
     public void setId(Long id) {
         this.id = id;
@@ -48,14 +51,6 @@ public class DogNotification {
         this.email = email;
     }
 
-    public Boolean getSubbedReminders() {
-        return subbedReminders;
-    }
-
-    public void setSubbedReminders(Boolean subbedReminders) {
-        this.subbedReminders = subbedReminders;
-    }
-
     public Boolean getSubbedMarketing() {
         return subbedMarketing;
     }
@@ -71,6 +66,15 @@ public class DogNotification {
     public String getIdentitySid() { return identitySid; }
 
     public void setIdentitySid(String identitySid) { this.identitySid = identitySid; }
+
+    @Override
+    public boolean equals(Object o){
+        DogNotification notification = (DogNotification) o;
+        if (this.getPhoneNumber().equals(notification.getPhoneNumber())){
+            return true;
+        }
+        else return false;
+    }
 
 }
 

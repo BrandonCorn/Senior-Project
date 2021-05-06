@@ -6,5 +6,5 @@ public interface DogNotificationRepository {
     int add(DogNotification dogNotification);
     DogNotification get(String phoneNumber, String email);
     int update(DogNotification dogNotification);
-    int remove(DogNotification dogNotification);
+    int remove(String phoneNumber, String email);
 }
