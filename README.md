@@ -19,6 +19,7 @@ spring.datasource.jdbcUrl=
 twilio.account-sid=
 twilio.auth-token=
 twilio.phone-number=
+twilio.notify-service-sid=
 ```
 
 ## Limitations
